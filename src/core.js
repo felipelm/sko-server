@@ -30,9 +30,9 @@ export function next(state){
   }
 }
 
-export function vote(state, entry){
-  return state.updateIn(
-    ['vote', 'score', entry],
+export function vote(voteState, entry){
+  return voteState.updateIn(
+    ['score', entry],
     0,
     score => score + 1
   );
