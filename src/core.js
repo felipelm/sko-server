@@ -11,3 +11,11 @@ export function next(state){
     entries: entries.skip(2)
   })
 }
+
+export function vote(state, entry){
+  return state.updateIn(
+    ['vote', 'score', entry],
+    0,
+    score => score + 1
+  );
+}
