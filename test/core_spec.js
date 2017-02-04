@@ -37,6 +37,47 @@ describe('app logic', () => {
         entries: List.of('Subway')
       }));
     });
+
+    it('winner of current vote back in entries', ()=>{
+      const state = Map({
+        vote: Map({
+          pair: List.of('Spoletto', 'Subway'),
+          score: Map({
+            'Spoletto': 4,
+            'Subway': 2
+          })
+        }),
+        entries: List.of('McDonalds', 'BurgerKing', 'Bobs')
+      });
+      const nextState = next(state);
+      expect(nextState).to.equal(Map({
+        vote: Map({
+          pair: List.of('McDonalds', 'BurgerKing')
+        }),
+        entries: List.of('Bobs', 'Spoletto')
+      }));
+    });
+
+    it('return both tied vote back to entries', () => {
+      const state = Map({
+        vote: Map({
+          pair: List.of('Spoletto', 'Bobs'),
+          score: Map({
+            'Spoletto': 3,
+            'Bobs': 3
+          })
+        }),
+        entries: List.of('McDonalds', 'BurgerKing', 'Pizzahut')
+      });
+      const nextState = next(state);
+      expect(nextState).to.equal(Map({
+        vote: Map({
+          pair: List.of('McDonalds', 'BurgerKing')
+        }),
+        entries: List.of('Pizzahut', 'Spoletto', 'Bobs')
+      }));
+    });
+
   });
 
   describe('vote', () => {
