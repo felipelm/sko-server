@@ -78,7 +78,23 @@ describe('app logic', () => {
       }));
     });
 
-  });
+    it('winner when just one entry left', () => {
+      const state = Map({
+        vote: Map({
+          pair: List.of('McDonalds', 'Bobs'),
+          score: Map({
+            'McDonalds': 4,
+            'Bobs':2
+          })
+        }),
+        entries: List()
+        });
+        const nextState = next(state);
+        expect(nextState).to.equal(Map({
+          winner: 'McDonalds'
+        }));
+      });
+    });
 
   describe('vote', () => {
     it('create score for voted entry', () => {
@@ -124,5 +140,5 @@ describe('app logic', () => {
           entries: List()
         }));
       });
+    });
   });
-});
