@@ -32,6 +32,7 @@ describe('app logic', () => {
       const nextState = next(state);
       expect(nextState).to.equal(Map({
         vote: Map({
+          round: 1,
           pair: List.of('Spoletto', 'McDonalds')
         }),
         entries: List.of('Subway')
@@ -41,6 +42,7 @@ describe('app logic', () => {
     it('winner of current vote back in entries', ()=>{
       const state = Map({
         vote: Map({
+          round: 1,
           pair: List.of('Spoletto', 'Subway'),
           score: Map({
             'Spoletto': 4,
@@ -52,6 +54,7 @@ describe('app logic', () => {
       const nextState = next(state);
       expect(nextState).to.equal(Map({
         vote: Map({
+          round: 2,
           pair: List.of('McDonalds', 'BurgerKing')
         }),
         entries: List.of('Bobs', 'Spoletto')
@@ -61,6 +64,7 @@ describe('app logic', () => {
     it('return both tied vote back to entries', () => {
       const state = Map({
         vote: Map({
+          round: 1,
           pair: List.of('Spoletto', 'Bobs'),
           score: Map({
             'Spoletto': 3,
@@ -72,6 +76,7 @@ describe('app logic', () => {
       const nextState = next(state);
       expect(nextState).to.equal(Map({
         vote: Map({
+          round: 2,
           pair: List.of('McDonalds', 'BurgerKing')
         }),
         entries: List.of('Pizzahut', 'Spoletto', 'Bobs')
@@ -99,10 +104,12 @@ describe('app logic', () => {
   describe('vote', () => {
     it('create score for voted entry', () => {
       const state = Map({
+          round: 1,
           pair: List.of('Spoletto', 'McDonalds')
       });
       const nextState = vote(state, 'Spoletto');
       expect(nextState).to.equal(Map({
+          round: 1,
           pair: List.of('Spoletto', 'McDonalds'),
           score: Map({
             'Spoletto': 1
@@ -113,6 +120,7 @@ describe('app logic', () => {
 
       it('adds to existing score voted entry', () => {
         const state = Map({
+            round: 1,
             pair: List.of('Spoletto', 'McDonalds'),
             score: Map({
               'Spoletto': 4,
@@ -121,6 +129,7 @@ describe('app logic', () => {
         });
         const nextState = vote(state, 'Spoletto');
         expect(nextState).to.equal(Map({
+            round: 1,
             pair: List.of('Spoletto','McDonalds'),
             score: Map({
               'Spoletto':5,

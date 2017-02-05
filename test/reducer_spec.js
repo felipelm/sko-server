@@ -48,6 +48,7 @@ describe('reducer', () =>{
 
     expect(nextState).to.equal(fromJS({
       vote:{
+        round: 1,
         pair: ['McDonalds', 'Bobs']
       },
       entries: []
@@ -57,16 +58,17 @@ describe('reducer', () =>{
   it('handles vote', () => {
     const initialState = fromJS({
       vote: {
+        round: 1,
         pair: ['McDonalds', 'Bobs'],
-        score: {McDonalds:1}
       },
       entries: []
     });
-    const action = {tpe: 'VOTE', entry: 'McDonalds'};
+    const action = {type: 'VOTE', entry: 'McDonalds'};
     const nextState = reducer(initialState,action);
 
     expect(nextState).to.equal(fromJS({
       vote: {
+        round: 1,
         pair: ['McDonalds', 'Bobs'],
         score: {McDonalds: 1}
       },
