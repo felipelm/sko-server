@@ -2,6 +2,12 @@ import {List, Map} from 'immutable';
 
 export const INITIAL_STATE = Map();
 
+export function resetEntries(state){
+  var entries = require('../entries.json');
+  return state.remove('vote')
+              .set('entries', List(entries));
+}
+
 export function setEntries(state,entries){
   return state.set('entries', List(entries));
 }

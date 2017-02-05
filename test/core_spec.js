@@ -1,7 +1,7 @@
 import{List,Map} from 'immutable';
 import{expect} from 'chai';
 
-import{setEntries, next, vote} from '../src/core';
+import{setEntries, next, vote, resetEntries} from '../src/core';
 
 describe('app logic', () => {
   describe('setEntries', () => {
@@ -137,5 +137,25 @@ describe('app logic', () => {
             })
         }));
       });
+    });
+
+    describe('resetEntries', ()=>{
+      it('reset entries for initial file', () => {
+        const state = Map({
+          vote: Map({
+            round: 1,
+            pair: List.of('Spoletto', 'Bobs'),
+            score: Map({
+              'Spoletto': 3,
+              'Bobs': 3
+            })
+          }),
+          entries: List.of('McDonalds', 'BurgerKing', 'Pizzahut')
+        });
+        const nextState = resetEntries(state);
+        expect(nextState).to.equal(Map({
+          entries: List.of('McDonalds', 'Bobs', 'Subway', 'Spoletto', 'Burger King', 'Pizza Hut', 'Dominos Pizza', 'Bibi', 'Delirio Tropical')};
+        ));
+      })
     });
   });
